@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caritas.Gestao.ServiceAPI", "Caritas.Gestao.ServiceAPI.csproj", "{A99A5DDE-11E6-4DE0-B20F-00FF4AEE8E49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caritas.Gestao.ServiceAPI", "Caritas.Gestao.ServiceAPI.csproj", "{A99A5DDE-11E6-4DE0-B20F-00FF4AEE8E49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caritas.Gestao.Domain", "..\Caritas.Gestao.Domain\Caritas.Gestao.Domain.csproj", "{5821FC75-E77C-4066-859F-569EAA9D6B72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caritas.Gestao.Repository", "..\Caritas.Gestao.Repository\Caritas.Gestao.Repository.csproj", "{0A871798-776E-4E92-A633-5C325824CA92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A99A5DDE-11E6-4DE0-B20F-00FF4AEE8E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A99A5DDE-11E6-4DE0-B20F-00FF4AEE8E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A99A5DDE-11E6-4DE0-B20F-00FF4AEE8E49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5821FC75-E77C-4066-859F-569EAA9D6B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5821FC75-E77C-4066-859F-569EAA9D6B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5821FC75-E77C-4066-859F-569EAA9D6B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5821FC75-E77C-4066-859F-569EAA9D6B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A871798-776E-4E92-A633-5C325824CA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A871798-776E-4E92-A633-5C325824CA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A871798-776E-4E92-A633-5C325824CA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A871798-776E-4E92-A633-5C325824CA92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
