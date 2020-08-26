@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Caritas.Gestao.ServiceAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Caritas.Gestao.ServiceAPI.Controllers.UserController.GetUsers">
+            <summary>
+            Get Usuarios
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Caritas.Gestao.ServiceAPI.Controllers.UserController.GetUser(System.String)">
+            <summary>
+            Get an specific user by his name
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Caritas.Gestao.ServiceAPI.Controllers.UserController.PostUsers(Caritas.Gestao.ServiceAPI.Models.User)">
+            <summary>
+            Responsible to Create an User
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Caritas.Gestao.ServiceAPI.Controllers.UserController.PutUser(Caritas.Gestao.ServiceAPI.Models.User)">
+            <summary>
+            Responsible to Update an User by Id
+            </summary>
+            <param name="id"></param>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Caritas.Gestao.ServiceAPI.Controllers.UserController.DeleteUsers(System.Int32)">
+            <summary>
+            Responsible to Delete an User by Id
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>

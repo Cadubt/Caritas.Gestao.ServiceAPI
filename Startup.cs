@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Caritas.Gestao.Repository;
+using Caritas.Gestao.ServiceAPI.Services;
+using Caritas.Gestao.ServiceAPI.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,17 +19,18 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using Caritas.Gestao.ServiceAPI.Context;
 
 namespace Caritas.Gestao.ServiceAPI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,26 +41,34 @@ namespace Caritas.Gestao.ServiceAPI
             });
             services.AddControllers();
 
-            //services.AddCustomizedSwagger();
+            //Services
+            services.AddScoped<IUserService, UserService>();
 
-
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1.0", new OpenApiInfo
-            //    {
-            //        Title = "My APIs",
-            //        Version = "v1.0",
-            //        Description = "REST APIs "
-            //    });
-
-            //    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            //    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            //    c.IncludeXmlComments(xmlPath);
-            //});
-
+            //Swagger Documentation
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Caritás API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Caritas API",
+                    Description = "Caritas Gestão ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Shayne Boyer",
+                        Email = string.Empty,
+                        Url = new Uri("https://twitter.com/spboyer"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
 
                 var security = new Dictionary<string, IEnumerable<string>>
                 {
@@ -87,6 +97,9 @@ namespace Caritas.Gestao.ServiceAPI
                     }
                 });
             });
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
