@@ -4,14 +4,16 @@ using Caritas.Gestao.ServiceAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Caritas.Gestao.ServiceAPI.Migrations
 {
     [DbContext(typeof(CaritasContext))]
-    partial class CaritasContextModelSnapshot : ModelSnapshot
+    [Migration("20200827223356_Sheltered")]
+    partial class Sheltered
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,54 +60,6 @@ namespace Caritas.Gestao.ServiceAPI.Migrations
                     b.ToTable("Responsibles","shelt");
                 });
 
-            modelBuilder.Entity("Caritas.Gestao.ServiceAPI.Models.ScheduleSheet", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("interviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("kinshipId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("observation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("responsibleAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("responsibleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("responsiblePhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("scheduleDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("scheduleResponsible")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("shelteredAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("shelteredAge")
-                        .HasColumnType("int");
-
-                    b.Property<string>("shelteredName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("shelteredPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("ScheduleSheets","shelt");
-                });
-
             modelBuilder.Entity("Caritas.Gestao.ServiceAPI.Models.Sheltered", b =>
                 {
                     b.Property<int>("id")
@@ -139,7 +93,7 @@ namespace Caritas.Gestao.ServiceAPI.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Sheltereds","shelt");
+                    b.ToTable("Sheltereds");
                 });
 
             modelBuilder.Entity("Caritas.Gestao.ServiceAPI.Models.User", b =>

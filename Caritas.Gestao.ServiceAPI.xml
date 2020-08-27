@@ -39,5 +39,10 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="P:Caritas.Gestao.ServiceAPI.Models.ScheduleSheet.kinshipId">
+            <summary>
+            Grau de parentesco
+            </summary>
+        </member>
     </members>
 </doc>

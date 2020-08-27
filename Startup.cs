@@ -98,7 +98,9 @@ namespace Caritas.Gestao.ServiceAPI
                 });
             });
 
-            
+            services.AddScoped<IScheduleSheetService, ScheduleSheetService>();
+
+
 
         }
 

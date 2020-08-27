@@ -13,20 +13,23 @@ namespace Caritas.Gestao.ServiceAPI.Context
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Sheltered> Sheltereds { get; set; }
+        public DbSet<Responsible> Responsibles { get; set; }
+        public DbSet<Kinship> Kinships { get; set; }
+        public DbSet<ScheduleSheet> ScheduleSheets { get; set; }
 
-        //public DbSet<Sheltered> Sheltereds { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            
-        }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configure default schema
-            //modelBuilder.HasDefaultSchema("Ordering");
             modelBuilder.Entity<User>().ToTable("Users","usr");
-            //modelBuilder.Entity<Standard>().ToTable("StandardInfo", "dbo");
+            modelBuilder.Entity<Kinship>().ToTable("Kinships", "shelt");
+            modelBuilder.Entity<Responsible>().ToTable("Responsibles", "shelt");
+            modelBuilder.Entity<Sheltered>().ToTable("Sheltereds", "shelt");
+            modelBuilder.Entity<ScheduleSheet>().ToTable("ScheduleSheets", "shelt");
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
     }
 }
