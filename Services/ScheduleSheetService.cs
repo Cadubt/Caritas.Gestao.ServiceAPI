@@ -25,5 +25,37 @@ namespace Caritas.Gestao.ServiceAPI.Services
             ss = _context.ScheduleSheets.ToList();
             return ss;
         }
+        public bool PostScheduleSheet(ScheduleSheet scheduleSheet)
+        {
+            if (scheduleSheet == null)
+                return false;
+
+            var createdscheduleSheet = new ScheduleSheet
+            {
+                interviewDate = scheduleSheet.interviewDate,
+                kinshipId = scheduleSheet.kinshipId,
+                observation = scheduleSheet.observation,
+                responsibleAddress = scheduleSheet.responsibleAddress,
+                responsibleName = scheduleSheet.responsibleName,
+                responsiblePhone = scheduleSheet.responsiblePhone,
+                scheduleDate = scheduleSheet.scheduleDate,
+                scheduleResponsible = scheduleSheet.scheduleResponsible,
+                shelteredAddress = scheduleSheet.shelteredAddress,
+                shelteredAge = scheduleSheet.shelteredAge,
+                shelteredName = scheduleSheet.shelteredName,
+                shelteredPhone = scheduleSheet.shelteredPhone
+
+            };
+
+            _context.ScheduleSheets.Update(createdscheduleSheet);
+            _context.SaveChanges();
+
+            return true;
+        }
+        public object GetScheduleSheet(int id) 
+        {
+            var ScheduleSheetFound = from ss in _context.ScheduleSheets where ss.id == id select ss;
+            return ScheduleSheetFound;
+        }
     }
 }

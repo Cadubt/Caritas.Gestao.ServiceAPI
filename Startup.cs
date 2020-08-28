@@ -43,6 +43,7 @@ namespace Caritas.Gestao.ServiceAPI
 
             //Services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScheduleSheetService, ScheduleSheetService>();
 
             //Swagger Documentation
             services.AddSwaggerGen(c =>
@@ -98,7 +99,6 @@ namespace Caritas.Gestao.ServiceAPI
                 });
             });
 
-            services.AddScoped<IScheduleSheetService, ScheduleSheetService>();
 
 
 

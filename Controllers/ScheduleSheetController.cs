@@ -15,6 +15,7 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
     public class ScheduleSheetController : ControllerBase
     {
         private readonly IScheduleSheetService _scheduleSheetService;
+
         public readonly CaritasContext _context;
 
         public ScheduleSheetController(CaritasContext context, IScheduleSheetService scheduleSheetService)
@@ -23,13 +24,44 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
             _scheduleSheetService = scheduleSheetService;
         }
 
-        [HttpGet("GetScheduleSheets")]
+        [HttpGet("GetAll")]
         public ActionResult GetScheduleSheets()
         {
             try
             {
                 List<ScheduleSheet> sheets = _scheduleSheetService.GetScheduleSheets();
                 return Ok(sheets);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex}");
+            }
+        }
+
+        [HttpPost("Create")]
+        public ActionResult PostScheduleSheet(ScheduleSheet scheduleSheet)
+        {
+            try
+            {
+                bool wasCreated = _scheduleSheetService.PostScheduleSheet(scheduleSheet);
+                if (!wasCreated)
+                    return BadRequest($"Error: Nenhuma Ficha de Agendamento foi enviada para ser cadastrado");
+
+                return Ok("OK");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex}");
+            }
+        }
+
+        [HttpGet("GetOne")]
+        public ActionResult GetScheduleSheet(int id)
+        {
+            try
+            {
+                var ScheduleSheetFound = _scheduleSheetService.GetScheduleSheet(id);
+                return Ok(ScheduleSheetFound);
             }
             catch (Exception ex)
             {

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Caritas.Gestao.Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Caritas.Gestao.ServiceAPI.Interfaces;
 using Caritas.Gestao.ServiceAPI.Models;
-using System.Collections.Immutable;
 using Caritas.Gestao.ServiceAPI.Context;
 
 namespace Caritas.Gestao.ServiceAPI.Controllers
@@ -18,13 +14,14 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
     public class UserController : ControllerBase
     {
 
-        //private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         public readonly CaritasContext _context;
 
-        public UserController(CaritasContext context)
+        public UserController(CaritasContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         
@@ -39,8 +36,7 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
         {
             try
             {
-                List<User> u = new List<User>();
-                u = _context.Users.ToList();
+                List<User> u = _userService.GetUsers();
                 return Ok(u);
             }
             catch (Exception ex)
@@ -59,7 +55,7 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
         {
             try
             {
-                var userFound = from user in _context.Users where user.Name == nome select user;
+                var userFound = _userService.GetUser(nome);
                 return Ok(userFound);
             }
             catch (Exception ex)
@@ -78,25 +74,15 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
         {
             try
             {
-                if (user == null)
-                    return BadRequest("Nenhum usuario foi enviado para ser cadastrado");
-
-                var createdUser = new User
-                {
-                    Name = user.Name,
-                    Email = user.Email,
-                    Password = user.Password,
-                    Role = user.Role
-                };
-
-                _context.Users.Update(createdUser);
-                _context.SaveChanges();
+                bool wasCreated = _userService.PostUsers(user);
+                if (!wasCreated)
+                    return BadRequest($"Error: Nenhum usuario foi enviado para ser cadastrado");
 
                 return Ok("OK");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: Nenhum usuario foi enviado para ser cadastrado");
             }
         }
 
@@ -111,15 +97,11 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
         {
             try
             {
-                var userFound = _context.Users.AsNoTracking().FirstOrDefault(
-                    u => u.Id == user.Id);
+                var userFound = _userService.PutUser(user);
 
                 if (userFound != null)
-                {
-                    _context.Users.Update(user);
-                    _context.SaveChanges();
                     return Ok(user);
-                }
+
                 return BadRequest("A Pesquisa não encontrou nenhum resultado");
             }
             catch (Exception ex)
@@ -133,12 +115,17 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public void DeleteUsers(int id)
+        public ActionResult DeleteUsers(int id)
         {
-            var user = _context.Users.Where(u => u.Id == id).Single();
-
-            _context.Users.Remove(user);
-            _context.SaveChanges();
+            try
+            {
+                _userService.DeleteUsers(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex}");
+            }
         }
 
 
