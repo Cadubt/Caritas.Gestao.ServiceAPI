@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Caritas.Gestao.ServiceAPI.Interfaces;
 using Caritas.Gestao.ServiceAPI.Models;
 using Caritas.Gestao.ServiceAPI.Context;
+using System.Threading.Tasks;
 
 namespace Caritas.Gestao.ServiceAPI.Controllers
 {
@@ -24,7 +25,26 @@ namespace Caritas.Gestao.ServiceAPI.Controllers
             _userService = userService;
         }
 
-        
+        [HttpPost]
+        [Route("login")]
+        public ActionResult Login([FromBody] Login userLoginInfo)
+        {
+            try
+            {
+                if (userLoginInfo.Email.Trim() != "" || userLoginInfo.Password.Trim() != "")
+                {
+                    bool result = _userService.Login(userLoginInfo);
+                    return Ok(result);
+                }
+
+                return BadRequest("Envie um usuario e senha validos");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex}");
+            }            
+        }
+
 
         /// <summary>
         /// Get Usuarios

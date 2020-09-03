@@ -19,6 +19,19 @@ namespace Caritas.Gestao.ServiceAPI.Services
             _context = context;
         }
 
+        public bool Login(Login login)
+        {
+            var userFound = from user in _context.Users 
+                            where user.Email == login.Email 
+                            where user.Password == login.Password 
+                            select user;
+
+            if (userFound.Any())
+                return true;
+            else
+                return false;
+        }
+
         public List<User> GetUsers()
         {
             List<User> u = new List<User>();

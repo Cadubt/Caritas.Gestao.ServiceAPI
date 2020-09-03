@@ -9,6 +9,7 @@ namespace Caritas.Gestao.ServiceAPI.Interfaces
 {
     public interface IUserService
     {
+        bool Login(Login userLoginInfo);
         public List<User> GetUsers();
 
         public object GetUser(string nome);
@@ -18,5 +19,6 @@ namespace Caritas.Gestao.ServiceAPI.Interfaces
         public User PutUser(User user);
 
         public void DeleteUsers(int id);
+        
     }
 }
